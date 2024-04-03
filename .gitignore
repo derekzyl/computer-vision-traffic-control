@@ -2,17 +2,17 @@
 # yolov5
 
 # Outputs archive
-inference
-runs
+# inference
+# runs
 
 # Video source
 videos
 
 # Mac file 
-.DS_Store
+# .DS_Store
 
 # Virtual Environment
 env
 
 # Model weight
-yolov5s.pt
+# yolov5s.pt
