@@ -1,5 +1,3 @@
-# Mahimai Raja J
-# https://www.linkedin.com/in/mahimairaja/
 
 import numpy as np
 import torch
