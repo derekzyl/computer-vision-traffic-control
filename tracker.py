@@ -176,7 +176,7 @@ def detect(opt):
                 # Print results
                 for c in det[:, -1].unique():
                     n = (det[:, -1] == c).sum()  # detections per class
-                    print(f'nnnnnnnnnnnnnn {n}')
+                    
                     s += f"{n} {names[int(c)]}{'s' * (n > 1)}, "  # add to string
 
                 xywhs = xyxy2xywh(det[:, 0:4])
@@ -186,9 +186,10 @@ def detect(opt):
                 # pass detections to deepsort
                 t4 = time_sync()
                 outputs = deepsort.update(xywhs.cpu(), confs.cpu(), clss.cpu(), im0)
+                print(f"outputs: {outputs}")
                 t5 = time_sync()
                 dt[3] += t5 - t4
-                print(f"Outputs: {outputs}")
+            
 
                 # draw boxes for visualization
                 if len(outputs) > 0:
@@ -219,7 +220,7 @@ def detect(opt):
                                                                bbox_top, bbox_w, bbox_h, -1, -1, -1, -1))
             
                 LOGGER.info(f'{s} Done. YOLO:({t3 - t2:.3f}s), DeepSort:({t5 - t4:.3f}s)')
-                return s
+        
                 
                     
 
@@ -302,8 +303,8 @@ def detect(opt):
 
 
 def count_obj(box,w,h,id,direct,cls):
-    print("inside counter")
-    LOGGER.info(f' count object box {box} cls {cls}')
+
+    
     global up_count,down_count,tracker1, tracker2, car_count, truck_count, motorcycle_count, bus_count
     cx, cy = (int(box[0]+(box[2]-box[0])/2) , int(box[1]+(box[3]-box[1])/2))
 
@@ -366,39 +367,112 @@ def direction(id,y):
             return "North"
 
 
-if __name__ == '__main__':
+
    
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--weights', nargs='+', type=str, default='yolov5s.pt', help='model.pt path(s)')
-    parser.add_argument('--deep_sort_model', type=str, default='osnet_x0_25')
-    # parser.add_argument('--source', type=str, default='input.mp4', help='source')  # file/folder, 0 for webcam
-    parser.add_argument('--source', type=str, default='x.jpg', help='source')  # file/folder, 0 for webcam
+    # parser = argparse.ArgumentParser()
+    # parser.add_argument('--weights', nargs='+', type=str, default='yolov5s.pt', help='model.pt path(s)')
+    # parser.add_argument('--deep_sort_model', type=str, default='osnet_x0_25')
+    # # parser.add_argument('--source', type=str, default='input.mp4', help='source')  # file/folder, 0 for webcam
+    # parser.add_argument('--source', type=str, default='x.jpg', help='source')  # file/folder, 0 for webcam
     
-    parser.add_argument('--output', type=str, default='inference/output', help='output folder')  # output folder
-    parser.add_argument('--imgsz', '--img', '--img-size', nargs='+', type=int, default=[480], help='inference size h,w')
-    parser.add_argument('--conf-thres', type=float, default=0.35, help='object confidence threshold')
-    parser.add_argument('--iou-thres', type=float, default=0.5, help='IOU threshold for NMS')
-    parser.add_argument('--fourcc', type=str, default='mp4v', help='output video codec (verify ffmpeg support)')
-    parser.add_argument('--device', default='', help='cuda device, i.e. 0 or 0,1,2,3 or cpu')
-    parser.add_argument('--show-vid', default='store_true', action='store_true', help='display tracking video results')
-    parser.add_argument('--save-vid', action='store_true', help='save video tracking results')
-    parser.add_argument('--save-txt', action='store_true', help='save MOT compliant results to *.txt')
-    # class 0 is person, 1 is bycicle, 2 is car... 79 is oven
-    parser.add_argument('--classes', nargs='+', type=int, help='filter by class: --class 0, or --class 16 17')
-    parser.add_argument('--agnostic-nms', action='store_true', help='class-agnostic NMS')
-    parser.add_argument('--augment', action='store_true', help='augmented inference')
-    parser.add_argument('--evaluate', action='store_true', help='augmented inference')
-    parser.add_argument("--config_deepsort", type=str, default="deep_sort/configs/deep_sort.yaml")
-    parser.add_argument("--half", action="store_true", help="use FP16 half-precision inference")
-    parser.add_argument('--visualize', action='store_true', help='visualize features')
-    parser.add_argument('--max-det', type=int, default=1000, help='maximum detection per image')
-    parser.add_argument('--dnn', action='store_true', help='use OpenCV DNN for ONNX inference')
-    parser.add_argument('--project', default=ROOT / 'runs/track', help='save results to project/name')
-    parser.add_argument('--name', default='exp', help='save results to project/name')
-    parser.add_argument('--exist-ok', action='store_true', help='existing project/name ok, do not increment')
-    opt = parser.parse_args()
-    opt.imgsz *= 2 if len(opt.imgsz) == 1 else 1  # expand
+    # parser.add_argument('--output', type=str, default='inference/output', help='output folder')  # output folder
+    # parser.add_argument('--imgsz', '--img', '--img-size', nargs='+', type=int, default=[480], help='inference size h,w')
+    # parser.add_argument('--conf-thres', type=float, default=0.35, help='object confidence threshold')
+    # parser.add_argument('--iou-thres', type=float, default=0.5, help='IOU threshold for NMS')
+    # parser.add_argument('--fourcc', type=str, default='mp4v', help='output video codec (verify ffmpeg support)')
+    # parser.add_argument('--device', default='', help='cuda device, i.e. 0 or 0,1,2,3 or cpu')
+    # parser.add_argument('--show-vid', default='store_true', action='store_true', help='display tracking video results')
+    # parser.add_argument('--save-vid', action='store_true', help='save video tracking results')
+    # parser.add_argument('--save-txt', action='store_true', help='save MOT compliant results to *.txt')
+    # # class 0 is person, 1 is bycicle, 2 is car... 79 is oven
+    # parser.add_argument('--classes', nargs='+', type=int, help='filter by class: --class 0, or --class 16 17')
+    # parser.add_argument('--agnostic-nms', action='store_true', help='class-agnostic NMS')
+    # parser.add_argument('--augment', action='store_true', help='augmented inference')
+    # parser.add_argument('--evaluate', action='store_true', help='augmented inference')
+    # parser.add_argument("--config_deepsort", type=str, default="deep_sort/configs/deep_sort.yaml")
+    # parser.add_argument("--half", action="store_true", help="use FP16 half-precision inference")
+    # parser.add_argument('--visualize', action='store_true', help='visualize features')
+    # parser.add_argument('--max-det', type=int, default=1000, help='maximum detection per image')
+    # parser.add_argument('--dnn', action='store_true', help='use OpenCV DNN for ONNX inference')
+    # parser.add_argument('--project', default=ROOT / 'runs/track', help='save results to project/name')
+    # parser.add_argument('--name', default='exp', help='save results to project/name')
+    # parser.add_argument('--exist-ok', action='store_true', help='existing project/name ok, do not increment')
+    # opt = parser.parse_args()
+    # opt.imgsz *= 2 if len(opt.imgsz) == 1 else 1  # expand
+
+    # with torch.no_grad():
+    #     detect(opt)
+
+
+
+
+def callLight(
+    weights='yolov5s.pt',
+    deep_sort_model='osnet_x0_25',
+    source='x.jpg',
+    output='inference/output',
+    imgsz=[480],
+    conf_thres=0.35,
+    iou_thres=0.5,
+    fourcc='mp4v',
+    device='',
+    show_vid=False,
+    save_vid=False,
+    save_txt=False,
+    classes=None,
+    agnostic_nms=True,
+    augment=True,
+    evaluate=True,
+    config_deepsort="deep_sort/configs/deep_sort.yaml",
+    half=True,
+    visualize=True,
+    max_det=100,
+    dnn=True,
+    project=ROOT/'runs/track',
+    name='exp',
+    exist_ok=True
+):  
+
+
+    class Opt:
+        def __init__(self, **kwargs):
+            self.__dict__.update(kwargs)
+            
+    opt= Opt(
+        weights=weights,
+        deep_sort_model=deep_sort_model,
+        source=source,
+        output=output,
+        imgsz=imgsz,
+        conf_thres=conf_thres,
+        iou_thres=iou_thres,
+        fourcc=fourcc,
+        device=device,
+        show_vid=show_vid,
+        save_vid=save_vid,
+        save_txt=save_txt,
+        classes=classes,
+        agnostic_nms=agnostic_nms,
+        augment=augment,
+        evaluate=evaluate,
+        config_deepsort=config_deepsort,
+        half=half,
+        visualize=visualize,
+        max_det=max_det,
+        dnn=dnn,
+        project=project,
+        name=name,
+        exist_ok=exist_ok
+    )
+    opt.imgsz *= 2 if len(opt.imgsz) == 1 else 1
 
     with torch.no_grad():
         detect(opt)
-        LOGGER.info(f'vehicle count: {car_count} {truck_count} {motorcycle_count} {bus_count} {up_count} {down_count}')
+        print(f"car count: {car_count}")
+
+
+
+if __name__ == '__main__':
+    callLight(source='input.mp4', show_vid=True)
+
+        
