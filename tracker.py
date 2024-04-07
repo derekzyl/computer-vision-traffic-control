@@ -186,7 +186,7 @@ def detect(opt):
                 # pass detections to deepsort
                 t4 = time_sync()
                 outputs = deepsort.update(xywhs.cpu(), confs.cpu(), clss.cpu(), im0)
-                print(f"outputs: {outputs}")
+                
                 t5 = time_sync()
                 dt[3] += t5 - t4
             
@@ -335,20 +335,21 @@ def count_obj(box,w,h,id,direct,cls):
                     bus_count+=1    
             
     elif direct=="North":
-        if cy < (h - 150):
-            if id not in tracker2:
-                print(f"\nID: {id}, H: {h} North\n")
-                up_count +=1
-                tracker2.append(id)
+        pass
+        # if cy < (h - 150):
+        #     if id not in tracker2:
+        #         print(f"\nID: {id}, H: {h} North\n")
+        #         up_count +=1
+        #         tracker2.append(id)
                 
-                if cls==2:
-                    car_count+=1
-                elif cls==7:
-                    truck_count+=1
-                elif cls == 3:
-                    motorcycle_count+=1
-                elif cls == 5:
-                    bus_count+=1       
+        #         if cls==2:
+        #             car_count+=1
+        #         elif cls==7:
+        #             truck_count+=1
+        #         elif cls == 3:
+        #             motorcycle_count+=1
+        #         elif cls == 5:
+        #             bus_count+=1       
 
                      
 
@@ -419,7 +420,7 @@ def callLight(
     show_vid=False,
     save_vid=False,
     save_txt=False,
-    classes=None,
+    classes=[2,3,5,7],
     agnostic_nms=True,
     augment=True,
     evaluate=True,
@@ -468,11 +469,21 @@ def callLight(
 
     with torch.no_grad():
         detect(opt)
-        print(f"car count: {car_count}")
+        return {
+            'total_count':car_count +bus_count+truck_count+motorcycle_count,
+        }
 
 
 
-if __name__ == '__main__':
-    callLight(source='input.mp4', show_vid=True)
+# if __name__ == '__main__':
+#     video_names = ['lane_1.mp4', 'lane_2.mp4', 'lane_3.mp4', 'lane_4.mp4']
+#     for i in range(4):
+#         count = callLight(source=video_names[i])
+#         print(count)
+    
 
         
+if __name__ == '__main__':
+    data = callLight(source= "input.mp4", show_vid=True)
+    print(data)
+    
