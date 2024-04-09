@@ -483,7 +483,7 @@ def callLight(
     
 
         
-if __name__ == '__main__':
-    data = callLight(source= "input.mp4", show_vid=True)
-    print(data)
+# if __name__ == '__main__':
+#     data = callLight(source= "input.mp4", show_vid=True)
+#     print(data)
     

@@ -31,17 +31,28 @@ vehicle_count_y1 = 0
 vehicle_count_y2 = 0
 
 
+vehicle_counts = {
+    "vehicle_count_x1": vehicle_count_x1,
+    
+    "vehicle_count_x2": vehicle_count_x2,
+    
+
+    "vehicle_count_y1": vehicle_count_y1,
+    "vehicle_count_y2": vehicle_count_y2,
+}
+
+
 s = [vehicle_count_x1,  vehicle_count_y1, vehicle_count_x2, vehicle_count_y2] # lane_1, lane_2, lane_3, lane_4
 
 video_names = ['lane_1.mp4', 'lane_2.mp4', 'lane_3.mp4', 'lane_4.mp4']
 
 def get_vehicles_count():
-    global vehicle_count_x1, vehicle_count_x2, vehicle_count_y1, vehicle_count_y2
+    global vehicle_count_x1, vehicle_count_x2, vehicle_count_y1, vehicle_count_y2,  vehicle_counts
     for i in range(4):
         capture_lane_video(i)
     for i in range(4):
        count = callLight(source=video_names[i])
-       s[i] = count["total_count"]
+       vehicle_counts[i] = count["total_count"]
        
        
 
@@ -66,11 +77,23 @@ def get_traffic_time():
         
 
 get_traffic_time()
-ledRed1, ledYellow1, ledGreen1 = 17, 27, 22
-ledRed2, ledYellow2, ledGreen2 = 5, 6, 13 
+
+
+# the led light indicators
+ledRedX, ledYellowX, ledGreenX = 17, 27, 22
+ledRedY, ledYellowY, ledGreenY = 5, 6, 13 
+
+# the motor controller pins 
 IN1, IN2, IN3, IN4 = 23, 24, 25,8
-SegmentPinA1, SegmentPinB1, SegmentPinC1, SegmentPinD1 = 4, 14, 15, 18
-SegmentPinA2, SegmentPinB2, SegmentPinC2, SegmentPinD2 = 12, 16, 20, 21
+
+
+#  responsible to show the count down timer 
+SegmentPinAX, SegmentPinBX, SegmentPinCX, SegmentPinDX = 4, 14, 15, 18
+SegmentPinAY, SegmentPinBY, SegmentPinCY, SegmentPinDY = 12, 16, 20, 21
+
+
+
+#  responsible to show the count down timer
 multiplex1, multiplex2, multiplex3 = 2, 3, 4
 
 

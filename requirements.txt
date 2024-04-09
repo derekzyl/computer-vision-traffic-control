@@ -70,4 +70,4 @@ traitlets==5.8.1
 typing_extensions==4.4.0
 urllib3==1.26.14
 wcwidth==0.2.6
-Werkzeug==2.2.2
+# Werkzeug==2.2.2SG.lAODZTTaRy68b9iVPuq5jA.OPGLM5U5tpyy3tHYZ8IWu0CN7-x9-eUunkr0OKqprLA
