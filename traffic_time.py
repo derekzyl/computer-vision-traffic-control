@@ -1,7 +1,8 @@
 
 
-def calculate_light_time(max_in_x, max_in_y, type, max_cars_in_lane=20, base_green_light_time=60):
-
+def calculate_light_time(max_in_x, max_in_y, type, max_cars_in_lane=20, base_green_light_time=60)->int:
+    cars_in_lane =0 
+    # Calculate the number of cars in the lane
 
     match type:
         case "x":
@@ -21,6 +22,7 @@ def calculate_light_time(max_in_x, max_in_y, type, max_cars_in_lane=20, base_gre
     
     # Calculate green light time based on the number of cars in the lane
     green_light_time = base_green_light_time *   (1 if cars_in_lane == 0 else cars_in_lane / max_cars_in_lane) 
+    green_light_time = min(green_light_time, 90)
     return  green_light_time
     
 

@@ -465,7 +465,7 @@ def callLight(
         name=name,
         exist_ok=exist_ok
     )
-    opt.imgsz *= 2 if len(opt.imgsz) == 1 else 1
+    opt.imgsz *= 2 if len(opt.imgsz) == 1 else 1 # type: ignore
 
     with torch.no_grad():
         detect(opt)
@@ -483,7 +483,7 @@ def callLight(
     
 
         
-# if __name__ == '__main__':
-#     data = callLight(source= "input.mp4", show_vid=True)
-#     print(data)
+if __name__ == '__main__':
+    data = callLight(source= "input.mp4", show_vid=True)
+    print(data)
     

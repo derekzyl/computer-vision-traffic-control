@@ -31,7 +31,7 @@ vehicle_count_y1 = 0
 vehicle_count_y2 = 0
 
 
-vehicle_counts = {
+vehicle_counts: dict[str, int] = {
     "vehicle_count_x1": vehicle_count_x1,
     
     "vehicle_count_x2": vehicle_count_x2,
@@ -97,10 +97,10 @@ SegmentPinAY, SegmentPinBY, SegmentPinCY, SegmentPinDY = 12, 16, 20, 21
 multiplex1, multiplex2, multiplex3 = 2, 3, 4
 
 
-def get_vehicles_count():
-    global vehicle_count_x1, vehicle_count_x2, vehicle_count_y1, vehicle_count_y2
-    for i in range(4):
-       count = callLight(source=video_names[i])
+# def get_vehicles_count():
+#     global vehicle_count_x1, vehicle_count_x2, vehicle_count_y1, vehicle_count_y2
+#     for i in range(4):
+#        count = callLight(source=video_names[i])
 
 
 
@@ -108,7 +108,7 @@ def get_vehicles_count():
 GPIO.setmode(GPIO.BCM)
 
 # set up leds
-for i in [ledRed1, ledYellow1, ledGreen1, ledRed2, ledYellow2, ledGreen2]:
+for i in [ledRedX, ledYellowX, ledGreenX, ledRedY, ledYellowY, ledGreenY]:
     GPIO.setup(i, GPIO.OUT)
 # setup stepper motor    
 GPIO.setup(IN1, GPIO.OUT)
@@ -117,7 +117,7 @@ GPIO.setup(IN3, GPIO.OUT)
 GPIO.setup(IN4, GPIO.OUT)
 
 # setup 7 segment display
-for i in [SegmentPinA1, SegmentPinB1, SegmentPinC1, SegmentPinD1, SegmentPinA2, SegmentPinB2, SegmentPinC2, SegmentPinD2]:
+for i in [SegmentPinAX, SegmentPinBX, SegmentPinCX, SegmentPinDX, SegmentPinAY, SegmentPinBY, SegmentPinCY, SegmentPinDY]:
     GPIO.setup(i, GPIO.OUT)
 
 
