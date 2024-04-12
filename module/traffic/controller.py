@@ -1,4 +1,6 @@
-from fastapi import APIRouter, Depends, Request, UploadFile
+from typing import Annotated
+
+from fastapi import APIRouter, Depends, File, Request, UploadFile
 from fastapi.responses import JSONResponse
 from pydantic import Json
 
@@ -11,24 +13,17 @@ ProcessRoute = APIRouter(prefix="/process")
 
 
 @ProcessRoute.post("/")
-async def process(data:Request, db= Depends(get_db) ):
-    if isinstance(data['x1'], UploadFile) and isinstance(data['x2'], UploadFile) and isinstance(data['y1'], UploadFile) and isinstance(data['y2'], UploadFile):
-      
+async def process(request:Request, db=Depends(get_db)):
 
-        x1 = data['x1']
-        x2 = data['x2']
-        y1 = data['y1']
-        
-        y2 = data['y2']
+    print(len(request['x1']))
 
-        return await processImage(x1, x2, y1, y2, db)
-
-    else:
-        return 60, 60
-
-        
-
-
+    # if isinstance(x1, UploadFile) and isinstance(x2, UploadFile) and isinstance(y1, UploadFile) and isinstance(y2, UploadFile):
+    #     print(x1.filename, x2.filename, y1.filename, y2.filename)
+    #     return await processImage(x1, x2, y1, y2, db)
+    
+    # Return default values if files are not present or not of the expected type
+    # else:
+    #     return 60, 60
 @ProcessRoute.get("/")
 async def get_process(db= Depends(get_db)):
 
@@ -37,4 +32,6 @@ async def get_process(db= Depends(get_db)):
     return JSONResponse(content=query)
     
     
+
+
 
