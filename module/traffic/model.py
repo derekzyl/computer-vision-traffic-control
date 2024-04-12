@@ -3,7 +3,7 @@ from datetime import datetime
 from sqlalchemy import ForeignKey, Integer, String, func
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
-from config.database.index import Base
+from config.database.index import Base, engine
 
 
 class Traffic(Base):
@@ -22,4 +22,4 @@ class Traffic(Base):
     updated_at: Mapped[datetime] = mapped_column(default=func.now())
     
     
-         
+Base.metadata.create_all(engine)         
