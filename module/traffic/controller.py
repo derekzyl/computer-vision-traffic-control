@@ -17,29 +17,27 @@ ProcessRoute = APIRouter(prefix="/process")
 
 
 
-@ProcessRoute.post("/")
-async def process(file: Annotated[UploadFile, File()], db=Depends(get_db)):
-    # pass
+# @ProcessRoute.post("/")
+# async def process(file: Annotated[UploadFile, File()], db=Depends(get_db)):
 
 
-    
-    print(file.filename)
+#     data = file.filename    # print(data)
 
     
 
-    # if isinstance(data['x1'], UploadFile) and isinstance(data['x2'], UploadFile) and isinstance(data['y1'], UploadFile) and isinstance(data['y2'], UploadFile):
+#     # if isinstance(data['x1'], UploadFile) and isinstance(data['x2'], UploadFile) and isinstance(data['y1'], UploadFile) and isinstance(data['y2'], UploadFile):
 
-    #     x1:UploadFile = data.get('x1') # type: ignore
-    #     x2: UploadFile = data.get('x2')# type: ignore
-    #     y1: UploadFile  = data.get('y1')# type: ignore
+#     #     x1:UploadFile = data.get('x1') # type: ignore
+#     #     x2: UploadFile = data.get('x2')# type: ignore
+#     #     y1: UploadFile  = data.get('y1')# type: ignore
         
-    #     y2: UploadFile  = data.get('y2')# type: ignore
+#     #     y2: UploadFile  = data.get('y2')# type: ignore
      
-    #     return await processImage(x1, x2, y1, y2, db) # type: ignore
+#     #     return await processImage(x1, x2, y1, y2, db) # type: ignore
     
-    # # Return default values if files are not present or not of the expected type
-    # else:
-    #     return 60, 60
+#     # # Return default values if files are not present or not of the expected type
+#     # else:
+#     #     return 60, 60
 @ProcessRoute.get("/")
 async def get_process(db= Depends(get_db)):
 
@@ -48,10 +46,12 @@ async def get_process(db= Depends(get_db)):
     return JSONResponse(content=query)
     
     
-
-
+    #     return 60, 60
 @ProcessRoute.post("/test")
 async def post_process(db= Depends(get_db)):
+
+
+    
     N = 10
     me: uuid.UUID = uuid.uuid4()
     j: str = str(me)
@@ -60,23 +60,33 @@ async def post_process(db= Depends(get_db)):
                 random.choices(string.ascii_lowercase + string.digits, k=N)
             )
 
+
+
+
+
     l: str = "".join(k)
     g = datetime.utcnow()
     hh = g.strftime("%Y%m%d%H%M%S")
     m: str = hh + res + l
-
+    #    x1_vehicles:Mapped[int]
+    #     x2_vehicles:Mapped[int]
+    #     y1_vehicles:Mapped[int]
+        
+    #     y2_vehicles:Mapped[int]
+    #     x_green_time:Mapped[int]
+    #     y_green_time:Mapped[int]
     dadta = {
             "id":m,
-            'x1_vehicles':60,
+            'x1_vehicles':23,
             
-            'x2_vehicles':20,
+            'x2_vehicles':12,
             
 
-            'y1_vehicles':9,
-                'y2_vehicles':3,
+            'y1_vehicles':45,
+                'y2_vehicles':23,
             
-            'x_green_time':4,
-            'y_green_time':14,
+            'x_green_time':33,
+            'y_green_time':23,
             
         
             
@@ -85,10 +95,14 @@ async def post_process(db= Depends(get_db)):
     db.add(save)
     
     db.commit()
-
-
-
-   
-
     return JSONResponse(content=save)
-    # return JSONResponse(content=query)
+    
+    
+
+
+
+
+    
+
+
+
