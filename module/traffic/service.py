@@ -27,9 +27,9 @@ def save_file(file: UploadFile):
     return file.filename
 async def processImage ( x_1:UploadFile, x_2:UploadFile, y_1:UploadFile, y_2:UploadFile, db:Session):
     xx1= save_file(x_1)
-    xx2= save_file(x_1)
-    yy1= save_file(x_1)
-    yy2= save_file(x_1)
+    xx2= save_file(y_1)
+    yy1= save_file(x_2)
+    yy2= save_file(y_2)
 
     dir1 = f'uploads/{xx1}'
     dir2 = f'uploads/{xx2}'
