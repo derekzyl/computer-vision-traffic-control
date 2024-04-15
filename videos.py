@@ -63,6 +63,6 @@ def capture_lane_video(lane_name, duration=2, fps=20, fourcc='mp4v'):
 
 
 # Example usage for four lanes (replace lane names as needed)
-# lane_names = ["1", "2", "3", "4"]
+lane_names = ["1", "2", "3", "4"]
 for lane_name in lane_names:
   capture_lane_video(lane_name)

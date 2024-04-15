@@ -469,6 +469,7 @@ def callLight(
 
     with torch.no_grad():
         detect(opt)
+        print(f'car count {car_count} bus count {bus_count} truck count {truck_count} bike {motorcycle_count}')
         return {
             'total_count':car_count +bus_count+truck_count+motorcycle_count,
         }
