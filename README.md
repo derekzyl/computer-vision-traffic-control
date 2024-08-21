@@ -117,3 +117,6 @@ uvicorn main:app --reload
 ### 4. Deploy to Cloud Storage 
 for faster image/video processing send to a server that is used for computer vision/ml
 
+### 5. Visualisation And Monitoring
+front end built to monitor the traffic flow and fetch data of the traffic sequence https://github.com/derekzyl/computer_vision_visualization
+
